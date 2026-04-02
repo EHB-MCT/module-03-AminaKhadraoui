@@ -20,7 +20,11 @@ function setup() {
 
     // 2. Add Event Listeners
     // Select the buttons and add 'click' listeners to call the functions below
+    document.querySelector("#btn-grow").addEventListener("click", growCity);
+    document.querySelector("#btn-shrink").addEventListener("click", shrinkCity);
+    document.querySelector("#btn-reset").addEventListener("click", resetData);
 }
+
 
 function draw() {
     background(255);
@@ -28,10 +32,17 @@ function draw() {
     // Draw ground line
     stroke(0);
     //draw line
+    line(startX, groundLevel, width * 0.8, groundLevel);
     noStroke();
 
     // 3. Visualize the Loop
     // Use forEach to loop through the buildings array
+  
+    buildings.forEach(function (building, index) {
+        //console.log(building)
+          fill(0, 0, 50 + building);
+        rect(startX + index * buildingWidth, groundLevel, buildingWidth, -building);
+    });
     // Calculate x and y positions
     // Draw a rect() for each building
     // Challenge: Set fill() based on height (taller = darker)
@@ -40,7 +51,13 @@ function draw() {
 
 function resetData() {
     // empty buildings array
+    buildings = [];
     // use a loop to create random heights
+    for (let i = 0; i < numBuildings; i++) {
+        let randomHeigth = random(50, 200);
+        buildings.push(randomHeigth);
+    }
+    console.log(buildings);
 
     updateDOM();
 }
@@ -48,6 +65,12 @@ function resetData() {
 function growCity() {
     // 4. Grow the City
     // Use .map() to create a new array where buildings are 10% taller
+    let newHeigths = buildings.map(function (building) {
+        return building * 1.1;
+    });
+
+    buildings = newHeigths
+
     console.log("Grow city");
     updateDOM();
 }
@@ -55,6 +78,11 @@ function growCity() {
 function shrinkCity() {
     // 5. Shrink the City
     // Use .map() to create a new array where buildings are 10% smaller
+    let newHeigths = buildings.map(function (building) {
+        return building / 1.1;
+    });
+
+    buildings = newHeigths
     console.log("Shrink city");
     updateDOM();
 }

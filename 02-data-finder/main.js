@@ -29,7 +29,20 @@ function draw() {
 
 
     // Loop through the sizes
+    fill(0, 119, 255);//bright bleu
 
+    for (let i = 0; i < cols; i++) { //i --> colls is x coordinaat
+        for (let j = 0; j = rows; j++) {
+            let size = sizes[i * j];
+            let x = i * cellW + cellW / 2;
+            let y = j * cellH + cellH / 2;
+            circle(x, y, size);
+            if (size > 25) {
+                fill(255);
+                text(size, x, y);
+            }
+        };
+    };
     // Drawing
     // Check for found index: red or blue
 
@@ -38,6 +51,10 @@ function draw() {
 
 function resetData() {
     //generate sizes
+    let sizes = [];
+    for (let i = 0; i < numCircles; i++) {
+        sizes.push(random(10, 100));
+    };
     //reset foundIndex
     //calculate stats
 
@@ -45,13 +62,20 @@ function resetData() {
 
 function findValue() {
     //get input value
+    let valueToSearch = document.querySelector("#find-input").value;
     //search for value
+foundIndex = sizes.findIndex(function(size){
+if(size==valueToSearch){
+    console.log("PING! FOUND!")
+    return true;
+};
+});
 
     //if value not found, alert
     if (foundIndex == -1) {
         alert("Value not found!");
     }
-}
+};
 
 function sortUp() {
     // sort ascending
@@ -67,6 +91,6 @@ function calculateStats() {
     //use reduce to calculate total
 
     //calculate average
-
+    calculateStats();
     //add both to DOM
 }
